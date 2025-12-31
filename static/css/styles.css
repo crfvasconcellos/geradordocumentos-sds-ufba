@@ -1,0 +1,141 @@
+
+:root{
+    --dark: #393c31;
+    --accent: #e38b04;
+    --muted1: #91661d;
+    --muted2: #b47414;
+    --muted3: #bc7c1c;
+
+    /* tons laranja para botões (mantidos também no tema escuro) */
+    --btn-orange-1: #e38b04;
+    --btn-orange-2: #bc7c1c;
+
+    --bg: #f7f5f0;
+    --card-bg: #ffffff;
+    --shadow: rgba(57,60,49,0.12);
+    --text: #222222;
+}
+
+*{box-sizing: border-box}
+html,body{height:100%;margin:0;font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;font-size:16px;background: linear-gradient(180deg,var(--bg),#fff);color:var(--text)}
+
+.page{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px;
+}
+
+.brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.logo{width:180px;max-width:40vw;height:auto;filter:drop-shadow(0 6px 14px var(--shadow));border-radius:12px;opacity:1}
+
+/* toggle de tema */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:60}
+.theme-toggle button{background:rgba(255,255,255,0.03);backdrop-filter: blur(6px);border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:10px;cursor:pointer;font-size:16px;box-shadow:0 6px 14px rgba(15,18,20,0.06);transition:transform .12s ease,background .12s ease}
+.theme-toggle button:hover{transform:translateY(-2px);background:rgba(255,255,255,0.04)}
+
+@media (max-width:600px){
+    .theme-toggle{top:12px;right:12px}
+}
+
+/* Tema escuro: ativado quando body tiver a classe .dark */
+/* Quando a classe 'dark' estiver presente no <html> ou <body> */
+.dark{
+    /* tema escuro mais cinza e suave */
+    --dark: #e6e7e8;
+    --accent: #bfa97a;    /* acento levemente dourado para detalhes */
+    --muted1: #9ea3a6;
+    --muted2: #8f9396;
+    --muted3: #7f8386;
+
+    --bg: #2b2d2e;        /* fundo em grafite acinzentado */
+    --card-bg: #303233;   /* card um pouco mais claro */
+    --shadow: rgba(0,0,0,0.28);
+    --text: #e6e7e8;
+}
+.dark html, .dark body{background: linear-gradient(180deg,var(--bg), #161718);color:var(--text)}
+.dark .card{background: linear-gradient(180deg,var(--card-bg), #0f1112);border-color: rgba(255,255,255,0.03);box-shadow: 0 8px 30px rgba(0,0,0,0.6)}
+.dark .input{background: linear-gradient(180deg,#0f1113,#0b0c0d);border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+.dark .label, .dark .title, .dark .subtitle{color:var(--text)}
+.dark .btn{background:linear-gradient(90deg,var(--btn-orange-1),var(--btn-orange-2));box-shadow:0 8px 18px rgba(0,0,0,0.35);color:white}
+.dark .theme-toggle button{border:1px solid rgba(255,255,255,0.06)}
+
+.main{width:100%;max-width:720px;display:flex;align-items:center;justify-content:center}
+
+.card{
+    width:100%;
+    padding:28px;
+    border-radius:14px;
+    background: linear-gradient(180deg, var(--card-bg) 0%, #fbfbfb 100%);
+    box-shadow: 0 8px 30px var(--shadow);
+    position:relative; /* necessário para a barrinha decorativa */
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:stretch;
+    animation:pop .38s cubic-bezier(.2,.9,.3,1);
+    border: 1px solid rgba(57,60,49,0.06);
+    transition:background .22s ease,color .22s ease,box-shadow .22s ease,border-color .18s ease;
+}
+
+@keyframes pop{
+    from{transform:translateY(8px) scale(.995);opacity:0}
+    to{transform:none;opacity:1}
+}
+
+.title{margin:0;font-size:1.35rem;color:var(--dark);letter-spacing:0.2px}
+.subtitle{margin:0;color:var(--muted2);font-size:0.95rem}
+
+.label{font-size:0.9rem;color:var(--dark);margin-top:8px}
+.input{
+    padding:12px 14px;border-radius:10px;border:1px solid rgba(57,60,49,0.09);outline:none;background:linear-gradient(180deg,#ffffff,#fbfbfb);transition:box-shadow .18s ease,transform .12s ease,border-color .12s ease
+}
+.input:focus{box-shadow:0 6px 18px rgba(227,139,4,0.12);border-color:var(--accent);transform:translateY(-1px)}
+
+.btn{
+    margin-top:12px;padding:12px 16px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),var(--muted3));color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(156,90,10,0.18);transition:transform .14s cubic-bezier(.2,.9,.3,1),box-shadow .14s ease,filter .14s ease;align-self:center;min-width:160px
+}
+.btn:hover{transform:translateY(-3px) scale(1.01);filter:brightness(1.02);box-shadow:0 14px 30px rgba(156,90,10,0.18)}
+.btn:active{transform:translateY(0)}
+
+/* Inputs animation micro-interactions */
+.input::placeholder{color:#9a8f7f}
+
+/* Responsividade */
+@media (max-width:600px){
+    .card{padding:20px;border-radius:12px}
+    .logo{width:140px}
+    .title{font-size:1.15rem}
+}
+
+/* Acessibilidade e foco visível */
+.input:focus-visible{outline:3px solid rgba(227,139,4,0.12);outline-offset:3px}
+
+/* Pequena animação de entrada para rótulos */
+.label{opacity:0;transform:translateY(6px);animation:labelIn .5s ease forwards;animation-delay:.12s}
+@keyframes labelIn{to{opacity:1;transform:none}}
+
+/* imagem estática e levemente arredondada */
+.logo{opacity:1}
+
+/* estilo para telas grandes */
+@media (min-width:900px){
+    .card{padding:36px}
+}
+
+/* footer minimalista (opcional) */
+.card::after{
+    /* barra decorativa laranja sob o card */
+    content:"";
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:-10px; /* posicionada logo abaixo do card */
+    width:140px;
+    height:6px;
+    border-radius:6px;
+    background: linear-gradient(90deg,var(--btn-orange-1),var(--btn-orange-2));
+    box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}

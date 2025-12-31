@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gerador de PDF</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="brand">
+            <img src="img/sdsUfbalogo.png" alt="Logo" class="logo">
+            <div class="theme-toggle">
+                <button id="themeBtn" aria-label="Alternar tema" title="Alternar tema" aria-pressed="false">🌓</button>
+            </div>
+        </header>
+
+        <main class="main">
+            <form class="card" id="formPDF">
+                <h1 class="title">Gerador de Documentos</h1>
+                <p class="subtitle">Preencha os campos abaixo</p>
+
+                <label for="nome" class="label">Nome da Pessoa</label>
+                <input type="text" id="nome" name="nome" class="input" required>
+
+                <label for="campeonato" class="label">Nome do Campeonato</label>
+                <input type="text" id="campeonato" name="campeonato" class="input" required>
+
+                <button type="submit" class="btn">Enviar</button>
+                <p id="status" class="status" aria-live="polite"></p>
+            </form>
+        </main>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>
