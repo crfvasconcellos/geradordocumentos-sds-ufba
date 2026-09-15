@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gerador de PDF</title>
+    <title>Gerador de Documentos PDF</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
                 <label for="campeonato" class="label">Nome do Campeonato</label>
                 <input type="text" id="campeonato" name="campeonato" class="input" required>
 
-                <button type="submit" class="btn">Enviar</button>
+                <button type="submit" class="btn">Enviar e Baixar PDF</button>
                 <p id="status" class="status" aria-live="polite"></p>
             </form>
         </main>
@@ -34,7 +34,49 @@
 
     <script src="js/theme.js"></script>
     <script>
-        
+        const formPDF = document.getElementById('formPDF');
+        const statusElement = document.getElementById('status');
+
+        formPDF.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById('nome').value.trim();
+            const campeonato = document.getElementById('campeonato').value.trim();
+
+            statusElement.textContent = 'Gerando PDF, aguarde...';
+            statusElement.style.color = '#555';
+
+            try {
+                const response = await fetch('http://localhost:8080/api/documentos/gerar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome, campeonato })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao gerar PDF (Status ' + response.status + ')');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Documento_${nome.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                statusElement.textContent = 'Documento PDF gerado e baixado com sucesso!';
+                statusElement.style.color = '#28a745';
+            } catch (error) {
+                console.error('Erro:', error);
+                statusElement.textContent = 'Erro ao gerar documento. Verifique se o servidor backend está rodando em http://localhost:8080.';
+                statusElement.style.color = '#dc3545';
+            }
+        });
     </script>
 </body>
 </html>
